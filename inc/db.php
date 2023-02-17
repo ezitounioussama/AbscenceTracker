@@ -9,14 +9,6 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // echo "Connected successfully";
 
-
-    $name = $_POST['username'];
-    $passwd = $_POST['password'];
-
-
-
-    if (isset($_POST['delete'])) {
-    }
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
