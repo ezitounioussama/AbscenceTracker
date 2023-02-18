@@ -96,7 +96,7 @@ require_once('create.php');
 </div>
 <div class="flex justify-center">
   <!-- Form to add students -->
-  <form method="POST" action="../create.php" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
+  <form method="POST" action="create.php" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
     <p class="text-lg font-medium">Add Students</p>
 
     <div>

@@ -12,7 +12,7 @@ include('../inc/db.php');
 
 
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $course_name = $_POST['course_name'];
     $id_user = $_POST['id_user'];
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
         if (in_array($imageFileType, $extensions_arr)) {
             // Move the uploaded file to the target directory
             if (move_uploaded_file($_FILES['course_image']['tmp_name'], $target_file)) {
-                $stmt = $conn->prepare('UPDATE courses SET course_name = ?, id_user = ?, course_image = ? WHERE id = ?');
+                $stmt = $conn->prepare('UPDATE courses SET course_name = ?, id_user = ?, course_image_path = ? WHERE id = ?');
                 $stmt->execute([$course_name, $id_user, $course_image, $id]);
                 header('location:./courses');
             } else {
@@ -42,6 +42,7 @@ if (isset($_POST['submit'])) {
         // Update course details without changing the image
         $stmt = $conn->prepare('UPDATE courses SET course_name = ?, id_user = ? WHERE id = ?');
         $stmt->execute([$course_name, $id_user, $id]);
+        header('location:./courses');
     }
 }
 
@@ -170,7 +171,7 @@ if (isset($_POST['submit'])) {
                 <div class="relative mt-1">
 
 
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" name="course_image" value="<?= $course['course_image_path'] ?>">
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" name="course_image">
 
 
                     <!-- <span class="absolute inset-y-0 right-4 inline-flex items-center">
@@ -197,4 +198,5 @@ if (isset($_POST['submit'])) {
 
 
 
+<?php require_once('../inc/footer.php') ?>
 <?php require_once('../inc/footer.php') ?>
