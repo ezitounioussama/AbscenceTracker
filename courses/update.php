@@ -31,7 +31,7 @@ if (isset($_POST['update'])) {
             if (move_uploaded_file($_FILES['course_image']['tmp_name'], $target_file)) {
                 $stmt = $conn->prepare('UPDATE courses SET course_name = ?, id_user = ?, course_image_path = ? WHERE id = ?');
                 $stmt->execute([$course_name, $id_user, $course_image, $id]);
-                header('location:./courses');
+                header('location:../courses');
             } else {
                 echo "Failed to upload image.";
             }
