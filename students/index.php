@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once('../inc/header.php');
 require_once('../inc/db.php');
-require_once('../create.php');
+require_once('create.php');
 
 ?>
 
@@ -51,7 +51,7 @@ require_once('../create.php');
 
     <nav aria-label="Site Nav" class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
       <a class="text-gray-900" href="../students/">Students</a>
-      <a class="text-gray-900" href="../course/">Courses</a>
+      <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
@@ -66,7 +66,7 @@ require_once('../create.php');
   <div class="border-t border-gray-100 lg:hidden">
     <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
       <a class="text-gray-900" href="">Students</a>
-      <a class="text-gray-900" href="../course/">Courses</a>
+      <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
@@ -133,7 +133,7 @@ require_once('../create.php');
       <div class="relative mt-1">
         <select class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" name="id_course" id="id_course">
           <?php
-          $stmt = $conn->prepare('select * from courses ');
+          $stmt = $conn->prepare('select * from courses');
           $stmt->execute();
 
           $courses = $stmt->fetchAll();
@@ -150,7 +150,7 @@ require_once('../create.php');
       <div class="relative mt-1">
         <select class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" name="id_groupe" id="id_groupe">
           <?php
-          $stmt = $conn->prepare('select * from groupe ');
+          $stmt = $conn->prepare('select * from groupes ');
           $stmt->execute();
 
           $groupes = $stmt->fetchAll();
@@ -191,7 +191,10 @@ require_once('../create.php');
     </thead>
     <tbody>
       <?php
-      $query = $conn->prepare('select students.id, students.email , students.fullname  , courses.course_name, groupe.name  from students inner join courses on students.id_course = courses.id inner join groupe on students.id_groupe = groupe.id ');
+      $query = $conn->prepare('SELECT students.id, students.email, students.fullname, courses.course_name, groupes.name 
+      FROM students 
+      INNER JOIN courses ON students.id_course = courses.id 
+      INNER JOIN groupes ON students.id_groupe = groupes.id');
       $query->execute();
 
       $students = $query->fetchAll();
@@ -218,8 +221,8 @@ require_once('../create.php');
           <td class="px-6 py-4"> <?= $value['name']  ?></td>
 
           <td class="px-6 py-4">
-            <a href="../update.php?id=<?= $value['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit students</a>
-            <a href="../delete.php?id=<?= $value['id'] ?>" class="font-medium text-red-600 dark:text-blue-500 hover:underline">delete students</a>
+            <a href="update.php?id=<?= $value['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4">Edit students</a>
+            <a href="delete.php?id=<?= $value['id'] ?>" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-4">delete students</a>
           </td>
 
 

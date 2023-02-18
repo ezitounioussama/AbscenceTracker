@@ -1,10 +1,10 @@
 <?php
-
-require_once('inc/header.php');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include('inc/db.php');
+require_once('../inc/header.php');
+
+include('../inc/db.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -101,27 +101,7 @@ if (isset($_POST['update'])) {
     </div>
 </header>
 
-<div aria-label="Page Header" class="bg-gray-50">
-    <div class="mx-auto max-w-screen-xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="text-center sm:text-left">
-                <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
-                    Welcome Mehdi, Laraibi!
-                </h1>
 
-                <p class="mt-1.5 text-sm text-gray-500">
-                    Let's write a new Student! 🎉
-                </p>
-            </div>
-
-            <div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                <button class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" type="button">
-                    Create a Student
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="flex justify-center">
     <!-- Form to add students -->
     <form action="./update.php" method="POST" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
@@ -178,7 +158,7 @@ if (isset($_POST['update'])) {
             <div class="relative mt-1">
                 <select class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" name="id_groupe" id="id_groupe">
                     <?php
-                    $stmt = $conn->prepare('select * from groupe ');
+                    $stmt = $conn->prepare('select * from groupes ');
                     $stmt->execute();
 
                     $groupes = $stmt->fetchAll();
@@ -203,4 +183,4 @@ if (isset($_POST['update'])) {
 
 
 
-<?php require_once('inc/footer.php') ?>
+<?php require_once('../inc/footer.php') ?>
