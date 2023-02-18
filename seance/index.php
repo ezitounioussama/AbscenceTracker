@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seance</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <link rel="apple-touch-icon" type="image/ico" sizes="49x49" href="https://gomycode.com/favicon.ico" />
-  <link rel="icon" type="image/ico" href="https://gomycode.com/favicon.ico" />
-</head>
+require_once('../inc/header.php');
+require_once('../inc/db.php');
+
+
+?>
 
 <style>
   input[type="date"]::-webkit-calendar-picker-indicator {
@@ -112,14 +109,14 @@
   </div>
   <div class="flex justify-center">
     <!-- Form to add students -->
-    <form action="" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
+    <form action="create.php" method="POST" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
       <p class="text-lg font-medium">Add Seance</p>
 
       <div>
         <label for="seance" class="text-sm font-medium">Seance</label>
 
         <div class="relative mt-1">
-          <input type="text" id="seance" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
+          <input type="text" id="seance" name="seance" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
 
           <span class="absolute inset-y-0 right-4 inline-flex items-center">
             <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -128,11 +125,43 @@
           </span>
         </div>
       </div>
+      <div class="relative mt-1">
+        <select name="id_course" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
+          <?php
+          $stmt = $conn->prepare('select * from courses');
+          $stmt->execute();
+
+          $courses = $stmt->fetchAll();
+          foreach ($courses as $key => $value) {
+          ?>
+            <option value="<?= $value['id'] ?>"><?= $value['course_name'] ?></option>
+          <?php } ?>
+        </select>
+
+
+
+      </div>
+      <div class="relative mt-1">
+        <select name="id_groupe" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
+          <?php
+          $stmt = $conn->prepare('select * from groupes');
+          $stmt->execute();
+
+          $groupes = $stmt->fetchAll();
+          foreach ($groupes as $key => $value) {
+          ?>
+            <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+          <?php } ?>
+        </select>
+
+
+
+      </div>
       <div>
         <label for="date" class="text-sm font-medium">Date</label>
 
         <div class="relative mt-1">
-          <input type="date" id="date" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
+          <input type="date" name="date" id="date" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
         </div>
       </div>
 
@@ -140,7 +169,7 @@
         <label for="start" class="text-sm font-medium">Start Seance</label>
 
         <div class="relative mt-1">
-          <input type="time" id="start" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
+          <input type="time" name="time_start" id="start" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
         </div>
       </div>
 
@@ -148,10 +177,10 @@
         <label for="end" class="text-sm font-medium">End Seance</label>
 
         <div class="relative mt-1">
-          <input type="time" id="end" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
+          <input type="time" name="time_end" id="end" class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm text-gray-500" />
         </div>
       </div>
-      <button type="submit" class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
+      <button type="submit" name="submit" class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
         Add
       </button>
     </form>
@@ -171,30 +200,60 @@
           <th scope="col" class="px-6 py-3">Date</th>
           <th scope="col" class="px-6 py-3">Start Time</th>
           <th scope="col" class="px-6 py-3">End Time</th>
+          <th scope="col" class="px-6 py-3">Course</th>
+          <th scope="col" class="px-6 py-3">Groupe</th>
+
+          <th scope="col" class="px-6 py-3"></th>
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="w-4 p-4">
-            <div class="flex items-center">
-              <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-              <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-            </div>
-          </td>
-          <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-            <div>
-              <div class="text-base font-semibold">xxxxxxx</div>
-            </div>
-          </th>
-          <td class="px-6 py-4">Students</td>
+        <?php
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $query = $conn->prepare('SELECT seance.id, seance.seance_name, seance.date, seance.start_seance, seance.end_seance, courses.course_name, groupes.name
+      FROM seance
+      INNER JOIN courses ON seance.id_course = courses.id
+      INNER JOIN groupes ON seance.id_groupe = groupes.id');
+        $query->execute();
 
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">12:00 AM</a>
-          </td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">09:00 PM</a>
-          </td>
-        </tr>
+        $seance = $query->fetchAll();
+
+        foreach ($seance as $key => $value) { ?>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="w-4 p-4">
+              <div class="flex items-center">
+                <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+              </div>
+            </td>
+            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+              <div>
+                <div class="text-base font-semibold"><?= $value['seance_name'] ?></div>
+              </div>
+            </th>
+            <td class="px-6 py-4"><?= $value['date'] ?></td>
+            <td class="px-6 py-4">
+              <span class="font-bold text-black text-md  "><?= $value['start_seance'] ?></span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="font-bold text-black text-md  "><?= $value['end_seance'] ?></span>
+            </td>
+
+            <td class="px-6 py-4">
+              <span class="font-bold text-black text-md  "><?= $value['course_name'] ?></span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="font-bold text-black text-md  "><?= $value['name'] ?></span>
+            </td>
+
+            <td class="px-6 py-4"><a href="update.php?id=<?= $value['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4">Edit Seance</a>
+              <a href="delete.php?id=<?= $value['id'] ?>" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-4">delete Seance</a>
+            </td>
+
+
+          </tr>
+        <?php } ?>
       </tbody>
     </table>
   </div>
