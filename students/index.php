@@ -54,6 +54,7 @@ require_once('create.php');
       <a class="text-gray-900" href="../groupe/">Groupe</a>
       <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
+      <a class="text-gray-900" href="../absence/">Abscence</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
 
@@ -66,10 +67,11 @@ require_once('create.php');
 
   <div class="border-t border-gray-100 lg:hidden">
     <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
-      <a class="text-gray-900" href="">Students</a>
+      <a class="text-gray-900" href="../students/">Students</a>
       <a class="text-gray-900" href="../groupe/">Groupe</a>
       <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
+      <a class="text-gray-900" href="../absence/">Abscence</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
   </div>

@@ -65,6 +65,7 @@ require_once('../inc/db.php');
         <a class="text-gray-900" href="../groupe/">Groupe</a>
         <a class="text-gray-900" href="../courses/">Courses</a>
         <a class="text-gray-900" href="../seance/">Seance</a>
+        <a class="text-gray-900" href="../absence/">Abscence</a>
         <a class="text-gray-900" href="">Contact</a>
       </nav>
 
@@ -81,12 +82,13 @@ require_once('../inc/db.php');
         <a class="text-gray-900" href="../groupe/">Groupe</a>
         <a class="text-gray-900" href="../courses/">Courses</a>
         <a class="text-gray-900" href="../seance/">Seance</a>
+        <a class="text-gray-900" href="../absence/">Abscence</a>
         <a class="text-gray-900" href="">Contact</a>
       </nav>
     </div>
   </header>
 
-  <div aria-label="Page Header" class="bg-gray-50">
+  <!-- <div aria-label="Page Header" class="bg-gray-50">
     <div class="mx-auto max-w-screen-xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
       <div class="sm:flex sm:items-center sm:justify-between">
         <div class="text-center sm:text-left">
@@ -106,7 +108,7 @@ require_once('../inc/db.php');
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="flex justify-center">
     <!-- Form to add students -->
     <form action="create.php" method="POST" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
@@ -115,7 +117,7 @@ require_once('../inc/db.php');
       <div>
         <label for="seance" class="text-sm font-medium">Seance</label>
 
-        <div class="relative mt-1">
+        <!-- <div class="relative mt-1">
           <input type="text" id="seance" name="seance" disabled value="Seance" class="w-full cursor-not-allowed rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
 
           <span class="absolute inset-y-0 right-4 inline-flex items-center">
@@ -123,7 +125,7 @@ require_once('../inc/db.php');
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
             </svg>
           </span>
-        </div>
+        </div> -->
       </div>
       <div class="relative mt-1">
         <select name="id_course" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
@@ -196,7 +198,7 @@ require_once('../inc/db.php');
               <label for="checkbox-all-search" class="sr-only">checkbox</label>
             </div>
           </th>
-          <th scope="col" class="px-6 py-3">Seance</th>
+          <!-- <th scope="col" class="px-6 py-3">Seance</th> -->
           <th scope="col" class="px-6 py-3">Date</th>
           <th scope="col" class="px-6 py-3">Start Time</th>
           <th scope="col" class="px-6 py-3">End Time</th>
@@ -211,7 +213,7 @@ require_once('../inc/db.php');
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        $query = $conn->prepare('SELECT seance.id, seance.seance_name, seance.date, seance.start_seance, seance.end_seance, courses.course_name, groupes.name
+        $query = $conn->prepare('SELECT seance.id, seance.date, seance.start_seance, seance.end_seance, courses.course_name, groupes.name
       FROM seance
       INNER JOIN courses ON seance.id_course = courses.id
       INNER JOIN groupes ON seance.id_groupe = groupes.id');
@@ -227,11 +229,11 @@ require_once('../inc/db.php');
                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
               </div>
             </td>
-            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+            <!-- <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
               <div>
                 <div class="text-base font-semibold"><?= $value['seance_name'] ?></div>
               </div>
-            </th>
+            </th> -->
             <td class="px-6 py-4"><?= $value['date'] ?></td>
             <td class="px-6 py-4">
               <span class="font-bold text-black text-md  "><?= $value['start_seance'] ?></span>

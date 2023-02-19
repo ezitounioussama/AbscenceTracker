@@ -56,6 +56,7 @@ require_once('create.php');
       <a class="text-gray-900" href="../groupe/">Groupe</a>
       <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
+      <a class="text-gray-900" href="../absence/">Abscence</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
 
@@ -72,13 +73,14 @@ require_once('create.php');
       <a class="text-gray-900" href="../groupe/">Groupe</a>
       <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>
+      <a class="text-gray-900" href="../absence/">Abscence</a>
       <a class="text-gray-900" href="">Contact</a>
     </nav>
   </div>
 </header>
 
 <!-- HEADER END -->
-
+<!-- 
 <div aria-label="Page Header" class="bg-gray-50">
   <div class="mx-auto max-w-screen-xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center sm:justify-between">
@@ -99,7 +101,7 @@ require_once('create.php');
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="flex justify-center">
   <!-- Form to add students -->
 
