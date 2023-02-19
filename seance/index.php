@@ -114,20 +114,9 @@ require_once('../inc/db.php');
     <form action="create.php" method="POST" class="mt-6 mb-0 space-y-4 rounded-lg p-8 w-[400px] md:shadow-2xl xl:shadow-2xl">
       <p class="text-lg font-medium">Add Seance</p>
 
-      <div>
-        <label for="seance" class="text-sm font-medium">Seance</label>
 
-        <!-- <div class="relative mt-1">
-          <input type="text" id="seance" name="seance" disabled value="Seance" class="w-full cursor-not-allowed rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
-
-          <span class="absolute inset-y-0 right-4 inline-flex items-center">
-            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
-            </svg>
-          </span>
-        </div> -->
-      </div>
       <div class="relative mt-1">
+        <label for="seance" class="text-sm font-medium">Course</label>
         <select name="id_course" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
           <?php
           $stmt = $conn->prepare('select * from courses');
@@ -144,6 +133,7 @@ require_once('../inc/db.php');
 
       </div>
       <div class="relative mt-1">
+        <label for="seance" class="text-sm font-medium">Groupe</label>
         <select name="id_groupe" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
           <?php
           $stmt = $conn->prepare('select * from groupes');

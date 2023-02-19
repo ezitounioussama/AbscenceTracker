@@ -94,8 +94,10 @@ if (isset($_POST['update'])) {
 
         <nav aria-label="Site Nav" class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
             <a class="text-gray-900" href="../students/">Students</a>
-            <a class="text-gray-900" href="../course/">Courses</a>
+            <a class="text-gray-900" href="../groupe/">Groupe</a>
+            <a class="text-gray-900" href="../courses/">Courses</a>
             <a class="text-gray-900" href="../seance/">Seance</a>
+            <a class="text-gray-900" href="../absence/">Abscence</a>
             <a class="text-gray-900" href="">Contact</a>
         </nav>
 
@@ -108,9 +110,11 @@ if (isset($_POST['update'])) {
 
     <div class="border-t border-gray-100 lg:hidden">
         <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
-            <a class="text-gray-900" href="">Students</a>
-            <a class="text-gray-900" href="../course/">Courses</a>
+            <a class="text-gray-900" href="../students/">Students</a>
+            <a class="text-gray-900" href="../groupe/">Groupe</a>
+            <a class="text-gray-900" href="../courses/">Courses</a>
             <a class="text-gray-900" href="../seance/">Seance</a>
+            <a class="text-gray-900" href="../absence/">Abscence</a>
             <a class="text-gray-900" href="">Contact</a>
         </nav>
     </div>
