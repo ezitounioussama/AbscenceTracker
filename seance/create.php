@@ -16,5 +16,5 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO seance (seance_name,id_course,id_groupe,date,start_seance,end_seance)
 VALUES ('$seance', $id_course, $id_groupe,'$date', '$time_start','$time_end')";
     $conn->exec($sql);
-    header('location:../students/');
+    header('location:../seance');
 }

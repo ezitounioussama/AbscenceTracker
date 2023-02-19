@@ -42,7 +42,7 @@ if (isset($_POST['update'])) {
         // Update course details without changing the image
         $stmt = $conn->prepare('UPDATE courses SET course_name = ?, id_user = ? WHERE id = ?');
         $stmt->execute([$course_name, $id_user, $id]);
-        header('location:./courses');
+        header('location:../courses');
     }
 }
 

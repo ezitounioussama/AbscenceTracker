@@ -116,7 +116,7 @@ require_once('../inc/db.php');
         <label for="seance" class="text-sm font-medium">Seance</label>
 
         <div class="relative mt-1">
-          <input type="text" id="seance" name="seance" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
+          <input type="text" id="seance" name="seance" disabled value="Seance" class="w-full cursor-not-allowed rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" placeholder="Enter seance" />
 
           <span class="absolute inset-y-0 right-4 inline-flex items-center">
             <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
