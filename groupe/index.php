@@ -114,11 +114,14 @@ require_once('create.php');
     <table class="w-1/2 divide-y-2 divide-gray-200 text-sm">
         <thead>
             <tr>
-                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                <!-- <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                     ID
-                </th>
+                </th> -->
                 <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                     Groupe Name
+                </th>
+                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                    Student count
                 </th>
 
                 <th class="px-4 py-2"></th>
@@ -126,7 +129,10 @@ require_once('create.php');
         </thead>
         <tbody class="divide-y divide-gray-200">
             <?php
-            $stmt = $conn->prepare('SELECT * FROM groupes');
+            $stmt = $conn->prepare('SELECT groupes.id, groupes.name, COUNT(students.id) as student_count
+            FROM groupes
+            LEFT JOIN students ON groupes.id = students.id_groupe
+            GROUP BY groupes.id');
             $stmt->execute();
 
             $groupe = $stmt->fetchAll();
@@ -135,15 +141,12 @@ require_once('create.php');
 
                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
 
-
-
-
-
                 <tr>
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <!-- <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                         <?= $value['id'] ?>
-                    </td>
+                    </td> -->
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?= $value['name'] ?></td>
+                    <td class="whitespace-nowrap px-4 py-2 text-gray-700"><?= $value['student_count'] ?></td>
 
                     <td class="whitespace-nowrap px-4 py-2">
                         <a href="update.php?id=<?= $value['id'] ?>" class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
@@ -151,7 +154,7 @@ require_once('create.php');
                         </a>
                     </td>
                     <td class="whitespace-nowrap px-4 py-2">
-                        <a href="delete.php?id=<?= $value['id'] ?>" class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
+                        <a href="delete.php?id=<?= $value['id'] ?>" class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700">
                             delete
                         </a>
                     </td>
@@ -163,6 +166,7 @@ require_once('create.php');
             <?php } ?>
         </tbody>
     </table>
+
 </div>
 <!-- FOOTER -->
 
@@ -171,6 +175,7 @@ require_once('create.php');
         © 2023 Company Co. All rights reserved.
     </div>
 </footer>
+<script src="script.js"></script>
 </body>
 
 </html>
