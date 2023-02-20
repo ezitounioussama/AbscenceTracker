@@ -1,5 +1,5 @@
 <footer aria-label="Site Footer" class="bg-gray-100 mt-10">
-    <div class="py-6 text-sm text-center dark:text-gray-400">
+    <div class="absolute bottom-0 w-full py-6 text-sm text-center dark:text-gray-400">
         © 2023 Go My Code. All rights reserved.
     </div>
 </footer>

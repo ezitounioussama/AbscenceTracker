@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Students</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <link rel="apple-touch-icon" type="image/ico" sizes="49x49" href="https://gomycode.com/favicon.ico" />
-  <link rel="icon" type="image/ico" href="https://gomycode.com/favicon.ico" />
-</head>
+require_once('../inc/header.php');
+require_once('../inc/db.php');
+// require_once('create.php');
+
+?>
 
 <body>
   <header aria-label="Site Header" class="shadow-sm">
@@ -81,54 +78,81 @@
     </div>
   </header>
 
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10 mx-5">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <!-- <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <a class="text-gray-900" href="">Students</a>
-          <a class="text-gray-900" href="../course/">Courses</a>
-          <a class="text-gray-900" href="../seance/">Seance</a>
-          <a class="text-gray-900" href="">Contact</a>
-        </tr>
-      </thead> -->
-      <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-            <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Jese image" />
-            <div class="pl-3">
-              <div class="text-base font-semibold">Neil Sims</div>
-              <div class="font-normal text-gray-500">
-                neil.sims@flowbite.com
-              </div>
-            </div>
-          </th>
-          <td class="px-6 py-4">
-            <select name="seance" id="seance" class="rounded-md shadow-md border-none bg-blue-300 text-white">
-              <option value="1">choose Seance</option>
-            </select>
-          </td>
+  <div class="relative flex flex-col justify-center items-center overflow-x-auto mt-10 ">
+    <div class="w-64 sm:w-96 text-sm  text-left text-gray-500 dark:text-gray-400 flex flex-col justify-center items-center">
+      <form action="./index.php" method="POST">
+        <div class="px-6 py-4">
+          <select class="rounded-md shadow-md border-none bg-blue-300 text-white w-64 sm:w-96" name="groupe" id="id_groupe">
+            <option value="choose Groupe">choose Groupe</option>
+            <?php
+            $stmt = $conn->prepare('select * from groupes ');
+            $stmt->execute();
 
-          <td class="px-6 py-4">
-            <select name="course" id="course" class="rounded-md shadow-md border-none bg-blue-300 text-white">
-              <option value="1">choose Course</option>
-            </select>
-          </td>
+            $groupes = $stmt->fetchAll();
+            foreach ($groupes as $key => $value) {
+            ?>
+              <option value="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+            <?php } ?>
+          </select>
+        </div>
 
-          <td class="px-6 py-4 ">
-            <label for="admin_name" class="text-sm font-medium">Present</label>
+        <div class="px-6 py-4">
+          <select class="rounded-md shadow-md border-none bg-blue-300 text-white w-64 sm:w-96" name="course" id="id_groupe">
+            <option value="choose Courses">choose Courses</option>
+            <?php
+            $stmt = $conn->prepare('select * from courses ');
+            $stmt->execute();
+
+            $course = $stmt->fetchAll();
+            foreach ($course as $key => $value) {
+            ?>
+              <option value="<?= $value['course_name'] ?>"><?= $value['course_name'] ?></option>
+            <?php } ?>
+          </select>
+        </div>
+
+
+        <!-- <label for="admin_name" class="text-sm font-medium">Present</label>
             <input type="radio" name="abscence" class="m-2" id="abscence_true" />
             <label for="admin_name" class="text-sm font-medium">Abscent</label>
-            <input type="radio" name="abscence" class="m-2" id="abscence_false" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <footer aria-label="Site Footer" class="bg-gray-100 mt-10 absolute w-full bottom-0">
-    <div class="py-6 text-sm text-center dark:text-gray-400">
-      © 2023 Company Co. All rights reserved.
+            <input type="radio" name="abscence" class="m-2" id="abscence_false" /> -->
+        <button type="submit" name="show" class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
+          Show Students
+        </button>
+      </form>
     </div>
-  </footer>
-</body>
+  </div>
+  <div class="w-full flex flex-wrap justify-center">
+    <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    if (isset($_POST['show'])) {
+      $course_name = $_POST['course'];
+      $groupe_name = $_POST['groupe'];
+      $query = $conn->prepare("SELECT students.fullname, students.email, courses.course_name AS course_name FROM students INNER JOIN groupes ON students.id_groupe = groupes.id INNER JOIN seance ON groupes.id = seance.id_groupe INNER JOIN courses ON seance.id_course = courses.id WHERE groupes.name = '$groupe_name' AND courses.course_name = '$course_name'");
+      $query->execute();
 
-</html>
+      $student = $query->fetchAll();
+
+      foreach ($student as $key => $value) { ?>
+        <div class="w-full  m-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+          <div class="flex flex-col pt-4 items-center pb-5">
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://img.freepik.com/free-vector/developer-activity-concept-illustration_114360-2801.jpg?w=2000" alt="Student image" />
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $value['fullname'] ?></h5>
+            <div class="flex mt-4 space-x-3 md:mt-6">
+              <select name="presence" class=" inline-flex items-center  py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <option value="0">present</option>
+                <option value="1">abscent</option>
+              </select>
+              <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+            </div>
+          </div>
+
+        </div>
+    <?php }
+    } ?>
+  </div>
+
+  <?php require_once('../inc/footer.php') ?>
