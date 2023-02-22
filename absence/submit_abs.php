@@ -5,18 +5,17 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if (isset($_POST['confirm'])) {
-    $student_id = $_POST['student_id'];
-    $presence = $_POST['presence'];
+    $student_ids = $_POST['student_id'];
+    $presences = $_POST['presence'];
     $course_id = $_POST['course_id'];
     $seance_id = $_POST['seance_id'];
-    echo $course_id;
-    echo $seance_id;
-    foreach ($_POST['student_id'] as $index => $student_id) {
-        $presence = $_POST['presence'][$index];
-        $query = $conn->prepare("INSERT INTO abscence (student_id, seance_id, presence) VALUES (:student_id, :seance_id, :presence)");
+    foreach ($student_ids as $index => $student_id) {
+        $presence = $presences[$index];
+        $query = $conn->prepare("INSERT INTO abscence (id_student, presences, id_course, id_seance) VALUES (:student_id, :presence, :course_id, :seance_id)");
         $query->bindParam(':student_id', $student_id);
-        $query->bindParam(':seance_id', $seance_id);
         $query->bindParam(':presence', $presence);
+        $query->bindParam(':course_id', $course_id);
+        $query->bindParam(':seance_id', $seance_id);
         $query->execute();
     }
 }

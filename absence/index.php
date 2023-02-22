@@ -128,7 +128,7 @@ require_once('../inc/db.php');
     </form>
   </div>
 </div>
-<form action="submit_abs.php" method="post" class="w-full flex flex-wrap justify-center">
+<form action="submit_abs.php" method="post">
   <?php
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
@@ -137,38 +137,40 @@ require_once('../inc/db.php');
     $btnState = false;
     $course_name = $_POST['course'];
     $groupe_name = $_POST['groupe'];
-    $query = $conn->prepare("SELECT students.id, students.fullname, students.email, courses.course_name AS course_name, seance.id_course, seance.id_groupe
+    $query = $conn->prepare("SELECT students.id, students.fullname, students.email, seance.id_course, seance.id_groupe
     FROM students
     INNER JOIN groupes ON students.id_groupe = groupes.id
-    INNER JOIN seance ON groupes.id = seance.id_groupe
+    Left JOIN seance ON seance.id = seance.id
     INNER JOIN courses ON seance.id_course = courses.id
     WHERE groupes.name = '$groupe_name' AND courses.course_name = '$course_name'");
     $query->execute();
 
     $student = $query->fetchAll();
-    if ($student) {
-      foreach ($student as $key => $value) { ?>
-        <div class="w-full  m-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <input type="hidden" name="student_id[]" value="<?= $value['id'] ?>">
-          <input type="hidden" name="course_id" value="<?= $value['id_course'] ?>">
-          <input type="hidden" name="seance_id" value="<?= $value['id_groupe'] ?>">
+    if ($student) { ?>
+      <div class="w-full flex flex-wrap justify-center">
+        <?php foreach ($student as $key => $value) { ?>
+          <div class="w-full  m-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <input type="hidden" name="student_id[]" value="<?= $value['id'] ?>">
+            <input type="hidden" name="course_id" value="<?= $value['id_course'] ?>">
+            <input type="hidden" name="seance_id" value="<?= $value['id_seance'] ?>">
 
 
-          <div class="flex flex-col pt-4 items-center pb-5">
-            <img class="w-24 h-24 mb-3 rounded-3xl shadow-xl" src="https://img.freepik.com/free-vector/developer-activity-concept-illustration_114360-2801.jpg?w=2000" alt="Student image" />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $value['fullname'] ?></h5>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <select name="presence[]" class=" inline-flex items-center  py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <option value="0">present</option>
-                <option value="1">abscent</option>
-              </select>
-              <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+            <div class="flex flex-col pt-4 items-center pb-5">
+              <img class="w-24 h-24 mb-3 rounded-3xl shadow-xl" src="https://img.freepik.com/free-vector/developer-activity-concept-illustration_114360-2801.jpg?w=2000" alt="Student image" />
+              <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $value['fullname'] ?></h5>
+              <div class="flex mt-4 space-x-3 md:mt-6">
+                <select name="presence[]" class=" inline-flex items-center  py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <option value="present">present</option>
+                  <option value="absent">absent</option>
+                </select>
+                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+              </div>
             </div>
-          </div>
 
-        </div>
-      <?php }
-    } else { ?>
+          </div>
+        <?php }  ?>
+      </div>
+    <?php } else { ?>
       <!--
     Graphic from https://www.opendoodles.com/
 -->

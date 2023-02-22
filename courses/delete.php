@@ -12,6 +12,7 @@ try {
     $conn->beginTransaction();
     $conn->exec("DELETE FROM seance WHERE id_course = $id");
     $conn->exec("DELETE FROM courses WHERE id = $id");
+
     $conn->commit();
     echo "Record deleted successfully";
     header('location:../courses');

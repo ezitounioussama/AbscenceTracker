@@ -205,8 +205,8 @@ require_once('create.php');
       <?php
       $query = $conn->prepare('SELECT students.id, students.email, students.fullname, courses.course_name, groupes.name 
       FROM students 
-      INNER JOIN courses ON students.id_course = courses.id 
-      INNER JOIN groupes ON students.id_groupe = groupes.id');
+      LEFT JOIN courses ON students.id_course = courses.id 
+      LEFT JOIN groupes ON students.id_groupe = groupes.id');
       $query->execute();
 
       $students = $query->fetchAll();
@@ -229,8 +229,8 @@ require_once('create.php');
               </div>
             </div>
           </th>
-          <td class="px-6 py-4"> <?= $value['course_name']  ?></td>
           <td class="px-6 py-4"> <?= $value['name']  ?></td>
+          <td class="px-6 py-4"> <?= $value['course_name']  ?></td>
 
           <td class="px-6 py-4">
             <a href="update.php?id=<?= $value['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4">Edit students</a>

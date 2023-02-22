@@ -135,7 +135,7 @@ require_once('create.php');
       <div class="relative mt-1">
         <select name="id_user" class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm">
           <?php
-          $stmt = $conn->prepare('select * from users ');
+          $stmt = $conn->prepare('select * from users');
           $stmt->execute();
 
           $groupes = $stmt->fetchAll();
@@ -186,8 +186,7 @@ require_once('create.php');
 <h1 class="text-4xl font-bold flex justify-center w-full mt-[8%]">All courses</h1>
 <div class="flex justify-center items-center flex-wrap my-5">
   <?php
-  $stmt = $conn->prepare('SELECT courses.id,courses.course_name, courses.course_image_path, users.name FROM courses JOIN users ON courses.id_user = users.id
-  ');
+  $stmt = $conn->prepare('SELECT * FROM courses');
   $stmt->execute();
 
   $courses = $stmt->fetchAll();
@@ -198,7 +197,7 @@ require_once('create.php');
       <input type="hidden" name="id" value="<?= $value['id'] ?>">
       <img src="../images/<?= $value['course_image_path'] ?>" alt="<?= $value['course_name'] ?>" class="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500">
       <div class="mt-6 mb-2">
-        <span class="block text-xs font-medium tracking-widest uppercase dark:text-violet-400"><?= $value['name'] ?></span>
+        <!-- <span class="block text-xs font-medium tracking-widest uppercase dark:text-violet-400"><?= $value['fullname'] ?></span> -->
         <h2 class="text-xl font-semibold tracking-wide"><?= $value['course_name'] ?></h2>
 
       </div>

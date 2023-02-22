@@ -26,14 +26,14 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
-    $seance = $_POST['seance'];
+
     $id_course = $_POST['id_course'];
     $id_groupe = $_POST['id_groupe'];
     $date = $_POST['date'];
     $start_seance = $_POST['start_seance'];
     $end_seance = $_POST['end_seance'];
     $sql = "UPDATE seance SET 
-            seance_name = :seance, 
+       
             date = :date, 
             start_seance = :start_seance, 
             end_seance = :end_seance,
@@ -41,7 +41,7 @@ if (isset($_POST['update'])) {
             id_groupe = :id_groupe 
             WHERE id = :id";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':seance', $seance);
+
     $stmt->bindParam(':id_course', $id_course);
     $stmt->bindParam(':id_groupe', $id_groupe);
     $stmt->bindParam(':date', $date);
