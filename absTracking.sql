@@ -27,7 +27,7 @@ CREATE TABLE `abscence` (
   `student_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `seance_id` int(11) DEFAULT NULL,
-  `presence` enum('present','absent') NOT NULL,
+  `presence` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id` (`student_id`),
   KEY `course_id` (`course_id`),
@@ -35,7 +35,7 @@ CREATE TABLE `abscence` (
   CONSTRAINT `abscence_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   CONSTRAINT `abscence_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   CONSTRAINT `abscence_ibfk_3` FOREIGN KEY (`seance_id`) REFERENCES `seance` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `abscence` (
 
 LOCK TABLES `abscence` WRITE;
 /*!40000 ALTER TABLE `abscence` DISABLE KEYS */;
+INSERT INTO `abscence` VALUES (10,7,NULL,10,1);
 /*!40000 ALTER TABLE `abscence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +119,7 @@ CREATE TABLE `seance` (
   KEY `id_groupe` (`id_groupe`),
   CONSTRAINT `seance_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`),
   CONSTRAINT `seance_ibfk_2` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +128,7 @@ CREATE TABLE `seance` (
 
 LOCK TABLES `seance` WRITE;
 /*!40000 ALTER TABLE `seance` DISABLE KEYS */;
-INSERT INTO `seance` VALUES (10,28,3,'2023-02-10','15:13:00','21:12:00');
+INSERT INTO `seance` VALUES (10,28,3,'2023-02-10','15:13:00','21:12:00'),(12,30,10,'2023-02-21','09:00:00','17:00:00');
 /*!40000 ALTER TABLE `seance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +150,7 @@ CREATE TABLE `students` (
   KEY `fk_groupe_id` (`id_groupe`),
   CONSTRAINT `fk_course_id` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_groupe_id` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +159,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (5,'Emma Wilsonn','EmmaWilsonn@exapmle.com',28,3);
+INSERT INTO `students` VALUES (5,'Emma Wilsonn','EmmaWilsonn@exapmle.com',28,3),(6,'oussama ezitouni','zitounioussama95@gmail.com',28,3),(7,'studentExample','binev17016@hagendes.com',30,10);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-19 22:51:08
+-- Dump completed on 2023-02-22 12:23:45

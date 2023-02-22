@@ -34,7 +34,7 @@
                         Log in to manage the Abscense
                     </p>
 
-                    <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+                    <form action="check.php" method="post" class="mt-8 grid grid-cols-6 gap-6">
                         <div class="col-span-6">
                             <label for="Email" class="block text-sm font-medium text-gray-700">
                                 Email
@@ -52,9 +52,9 @@
                         </div>
 
                         <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                            <a href="students/" class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+                            <button name="login" class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
                                 LOGIN
-                            </a>
+                            </button>
 
                             <p class="mt-4 text-sm text-gray-500 sm:mt-0">
                                 Forget Password?

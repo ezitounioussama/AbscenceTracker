@@ -2,7 +2,13 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+session_start();
 
+if (!isset($_SESSION['user_id'])) {
+  // Redirect to the login page
+  header("Location: ../");
+  exit;
+}
 require_once('../inc/header.php');
 require_once('../inc/db.php');
 // require_once('create.php');
@@ -97,7 +103,7 @@ require_once('../inc/db.php');
       </div>
 
       <div class="px-6 py-4">
-        <select class="rounded-md shadow-md border-none bg-blue-300 text-white w-64 sm:w-96" name="course" id="id_groupe">
+        <select class="rounded-md shadow-md border-none bg-blue-300 text-white w-64 sm:w-96" name="course" id="id_course">
           <option value="choose Courses">choose Courses</option>
           <?php
           $stmt = $conn->prepare('select * from courses ');
@@ -122,7 +128,7 @@ require_once('../inc/db.php');
     </form>
   </div>
 </div>
-<div class="w-full flex flex-wrap justify-center">
+<form action="submit_abs.php" method="post" class="w-full flex flex-wrap justify-center">
   <?php
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
@@ -131,19 +137,28 @@ require_once('../inc/db.php');
     $btnState = false;
     $course_name = $_POST['course'];
     $groupe_name = $_POST['groupe'];
-    $query = $conn->prepare("SELECT students.fullname, students.email, courses.course_name AS course_name FROM students INNER JOIN groupes ON students.id_groupe = groupes.id INNER JOIN seance ON groupes.id = seance.id_groupe INNER JOIN courses ON seance.id_course = courses.id WHERE groupes.name = '$groupe_name' AND courses.course_name = '$course_name'");
+    $query = $conn->prepare("SELECT students.id, students.fullname, students.email, courses.course_name AS course_name, seance.id_course, seance.id_groupe
+    FROM students
+    INNER JOIN groupes ON students.id_groupe = groupes.id
+    INNER JOIN seance ON groupes.id = seance.id_groupe
+    INNER JOIN courses ON seance.id_course = courses.id
+    WHERE groupes.name = '$groupe_name' AND courses.course_name = '$course_name'");
     $query->execute();
 
     $student = $query->fetchAll();
     if ($student) {
       foreach ($student as $key => $value) { ?>
         <div class="w-full  m-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <input type="hidden" name="student_id[]" value="<?= $value['id'] ?>">
+          <input type="hidden" name="course_id" value="<?= $value['id_course'] ?>">
+          <input type="hidden" name="seance_id" value="<?= $value['id_groupe'] ?>">
+
 
           <div class="flex flex-col pt-4 items-center pb-5">
             <img class="w-24 h-24 mb-3 rounded-3xl shadow-xl" src="https://img.freepik.com/free-vector/developer-activity-concept-illustration_114360-2801.jpg?w=2000" alt="Student image" />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $value['fullname'] ?></h5>
             <div class="flex mt-4 space-x-3 md:mt-6">
-              <select name="presence" class=" inline-flex items-center  py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <select name="presence[]" class=" inline-flex items-center  py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <option value="0">present</option>
                 <option value="1">abscent</option>
               </select>
@@ -185,13 +200,13 @@ require_once('../inc/db.php');
 
   <?php }
   } ?>
+  <div class="flex justify-center items-center">
+    <button type="submit" name="confirm" class="font-bold block w-96 rounded-lg bg-indigo-600 px-5 py-3 text-sm text-white my-5">
+      Confirm
+    </button>
+  </div>
+</form>
 
-</div>
-<div class="flex justify-center items-center">
-  <button type="submit" name="confirm" class="font-bold block w-96 rounded-lg bg-indigo-600 px-5 py-3 text-sm text-white my-5">
-    Confirm
-  </button>
-</div>
 
 <!-- <footer aria-label="Site Footer" class="bg-gray-100 mt-10">
   <div class="absolute bottom-0 w-full py-6 text-sm text-center dark:text-gray-400">

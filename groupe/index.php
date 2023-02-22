@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the login page
+    header("Location: ../");
+    exit;
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -78,8 +86,8 @@ require_once('create.php');
             </nav>
 
             <div class="hidden items-center gap-4 lg:flex">
-                <a href="#" class="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-600">
-                    Log in
+                <a href="../destroy.php" class="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-600">
+                    Log Out
                 </a>
             </div>
         </div>
