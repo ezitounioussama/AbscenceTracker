@@ -88,7 +88,7 @@ if (isset($_POST['update'])) {
             <a class="text-gray-900" href="../courses/">Courses</a>
             <a class="text-gray-900" href="../seance/">Seance</a>
             <a class="text-gray-900" href="../absence/">Abscence</a>
-            <a class="text-gray-900" href="">Contact</a>
+            <a class="text-gray-900" href="../contact.php">Contact</a>
         </nav>
 
         <div class="hidden items-center gap-4 lg:flex">
@@ -100,12 +100,12 @@ if (isset($_POST['update'])) {
 
     <div class="border-t border-gray-100 lg:hidden">
         <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
-            <a class="text-gray-900" href="../students/">Students</a>
+            <a class="text-gray-900 mx-2" href="../students/">Students</a>
             <a class="text-blue-700 mx-2 border rounded-xl py-1 bg-blue-100 px-2" href="../groupe/">Groupe</a>
-            <a class="text-gray-900" href="../courses/">Courses</a>
-            <a class="text-gray-900" href="../seance/">Seance</a>
-            <a class="text-gray-900" href="../absence/">Abscence</a>
-            <a class="text-gray-900" href="">Contact</a>
+            <a class="text-gray-900 mx-2" href="../courses/">Courses</a>
+            <a class="text-gray-900 mx-2" href="../seance/">Seance</a>
+            <a class="text-gray-900 mx-2" href="../absence/">Abscence</a>
+            <a class="text-gray-900 mx-2" href="../contact.php">Contact</a>
         </nav>
     </div>
 </header>

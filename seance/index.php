@@ -73,7 +73,7 @@ require_once('../inc/db.php');
         <a class="text-gray-900" href="../courses/">Courses</a>
         <a class="text-blue-700 border rounded-xl py-1 bg-blue-100 px-2" href="../seance/">Seance</a>
         <a class="text-gray-900" href="../absence/">Abscence</a>
-        <a class="text-gray-900" href="">Contact</a>
+        <a class="text-gray-900" href="../contact.php">Contact</a>
       </nav>
 
       <div class="hidden items-center gap-4 lg:flex">
@@ -90,7 +90,7 @@ require_once('../inc/db.php');
         <a class="text-gray-900 mx-2" href="../courses/">Courses</a>
         <a class="text-blue-700 mx-2 border rounded-xl py-1 bg-blue-100 px-2" href="../seance/">Seance</a>
         <a class="text-gray-900 mx-2" href="../absence/">Abscence</a>
-        <a class="text-gray-900 mx-2" href="">Contact</a>
+        <a class="text-gray-900 mx-2" href="../contact.php">Contact</a>
       </nav>
     </div>
   </header>
