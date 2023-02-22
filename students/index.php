@@ -58,7 +58,7 @@ require_once('create.php');
     </div>
 
     <nav aria-label="Site Nav" class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
-      <a class="text-gray-900" href="../students/">Students</a>
+      <a class="text-blue-700 border rounded-xl py-1 bg-blue-100 px-2" href="../students/">Students</a>
       <a class="text-gray-900" href="../groupe/">Groupe</a>
       <a class="text-gray-900" href="../courses/">Courses</a>
       <a class="text-gray-900" href="../seance/">Seance</a>

@@ -84,7 +84,7 @@ if (isset($_POST['update'])) {
 
         <nav aria-label="Site Nav" class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
             <a class="text-gray-900" href="../students/">Students</a>
-            <a class="text-gray-900" href="../groupe/">Groupe</a>
+            <a class="text-blue-700 border rounded-xl py-1 bg-blue-100 px-2" href="../groupe/">Groupe</a>
             <a class="text-gray-900" href="../courses/">Courses</a>
             <a class="text-gray-900" href="../seance/">Seance</a>
             <a class="text-gray-900" href="../absence/">Abscence</a>
@@ -101,7 +101,7 @@ if (isset($_POST['update'])) {
     <div class="border-t border-gray-100 lg:hidden">
         <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
             <a class="text-gray-900" href="../students/">Students</a>
-            <a class="text-gray-900" href="../groupe/">Groupe</a>
+            <a class="text-blue-700 mx-2 border rounded-xl py-1 bg-blue-100 px-2" href="../groupe/">Groupe</a>
             <a class="text-gray-900" href="../courses/">Courses</a>
             <a class="text-gray-900" href="../seance/">Seance</a>
             <a class="text-gray-900" href="../absence/">Abscence</a>
